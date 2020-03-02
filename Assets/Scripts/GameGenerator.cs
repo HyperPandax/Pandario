@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameGenerator : MonoBehaviour
-{
+public class GameGenerator : MonoBehaviour{
     //[SerializeField] private Transform levelPart_1;
     //[SerializeField] private Transform levelPart_2;
     //[SerializeField] private Transform levelPart_3;
@@ -26,8 +25,7 @@ public class GameGenerator : MonoBehaviour
     [SerializeField] private Vector3 lastPos;
 
 
-    private void Awake()
-    {
+    private void Awake(){
         //transArray = { levelG1, levelG2, levelG3};
         for (var i =0; i < 10; i++)
         {
@@ -50,13 +48,11 @@ public class GameGenerator : MonoBehaviour
         }
     }
 
-    private void SpawnLevelPart(Transform part,Vector3 spawnPosition)
-    {
+    private void SpawnLevelPart(Transform part,Vector3 spawnPosition){
         Instantiate(part, spawnPosition, Quaternion.identity);
         lastPos = spawnPosition;
     }
-    private void SpawnLevelPartPlatform(Transform part, Vector3 spawnPosition)
-    {
+    private void SpawnLevelPartPlatform(Transform part, Vector3 spawnPosition){
         Instantiate(part, spawnPosition + new Vector3(0,100), Quaternion.identity);
         //lastPos = spawnPosition;
     }

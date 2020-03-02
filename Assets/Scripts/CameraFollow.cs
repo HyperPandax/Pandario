@@ -1,10 +1,8 @@
 ﻿using System;
 using UnityEngine;
 
-namespace UnityStandardAssets._2D
-{
-    public class CameraFollow : MonoBehaviour
-    {
+namespace UnityStandardAssets._2D{
+    public class CameraFollow : MonoBehaviour{
         public Transform target;
         public float damping = 1;
         public float lookAheadFactor = 3;
@@ -17,8 +15,7 @@ namespace UnityStandardAssets._2D
         private Vector3 m_LookAheadPos;
 
         // Use this for initialization
-        private void Start()
-        {
+        private void Start(){
             m_LastTargetPosition = target.position ;
             m_OffsetZ = (transform.position - target.position).z;
             transform.parent = null;
@@ -26,8 +23,7 @@ namespace UnityStandardAssets._2D
 
 
         // Update is called once per frame
-        private void Update()
-        {
+        private void Update(){
             // only update lookahead pos if accelerating or changed direction
             float xMoveDelta = (target.position - m_LastTargetPosition).x;
 

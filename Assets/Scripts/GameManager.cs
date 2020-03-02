@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
-{
+public class GameManager : MonoBehaviour{
    
     public int score;
     public Text scoreText;
@@ -14,8 +13,7 @@ public class GameManager : MonoBehaviour
     Scene scene;
 
     // Use this for initialization
-    void Start()
-    {
+    void Start(){
         scene = SceneManager.GetActiveScene();
         score = 0;
         DontDestroyOnLoad(this.gameObject);
@@ -23,8 +21,7 @@ public class GameManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update(){
         scoreText.text = ("Score: " + score);
         scene = SceneManager.GetActiveScene();
         CheckScene();

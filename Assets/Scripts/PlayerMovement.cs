@@ -4,8 +4,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 
 //[RequireComponent(typeof(BoxCollider2D))]
-public class PlayerMovement : MonoBehaviour
-{
+public class PlayerMovement : MonoBehaviour{
 
     public float maxSpeed = 10f;
 
@@ -75,13 +74,14 @@ public class PlayerMovement : MonoBehaviour
                 {
                     print("grounded");
                     GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce));
-                    return;
+                    //return;
                     //yield return new WaitForSeconds(2);
                 }
             }
     }
     
-    void Flip () {
+    void Flip ()
+    {
         facingRight = !facingRight;
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
@@ -93,14 +93,6 @@ public class PlayerMovement : MonoBehaviour
             transform.position = new Vector3 (startPosX, startPosY, 0);
         }
     }
-
-    //public void Jump () {
-
-    //    if (grounded) {
-    //        //anim.SetBool ("Ground", false);
-    //        GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0, jumpForce));
-    //    }
-    //}
 
     public void OnTriggerEnter2D (Collider2D collision) {
         //print(collision.name);
