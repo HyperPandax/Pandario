@@ -4,7 +4,8 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 
 //[RequireComponent(typeof(BoxCollider2D))]
-public class PlayerMovement : MonoBehaviour{
+public class PlayerMovement : MonoBehaviour
+{
 
     public float maxSpeed = 10f;
 
@@ -29,6 +30,8 @@ public class PlayerMovement : MonoBehaviour{
 
     private GameManager gm;
 
+    private IEnumerator coroutine;
+
     void Start () {
 
         Rigidbody2D = GetComponent<Rigidbody2D> ();
@@ -36,7 +39,8 @@ public class PlayerMovement : MonoBehaviour{
         groundCheck = transform.Find ("GroundCheck");
         //print("GroundCheck" + groundCheck);
         gm = GameObject.FindGameObjectWithTag ("GameManager").GetComponent<GameManager> ();
-        //StartCoroutine (CoUpdate());
+
+        StartCoroutine(jumpAndWait(2.0f));
     }
 
     public void FixedUpdate () {
@@ -62,26 +66,41 @@ public class PlayerMovement : MonoBehaviour{
         else if (move < 0 && facingRight)
             Flip ();
 
-        GetComponent<Rigidbody2D> ().velocity = new Vector2 (move * maxSpeed, GetComponent<Rigidbody2D> ().velocity.y);
+        GetComponent<Rigidbody2D>().velocity = new Vector2 (move * maxSpeed, GetComponent<Rigidbody2D>().velocity.y);
     }
     
     void Update () {
-       
-            if (Input.GetKey(KeyCode.Space))
-            {
-                print("space is down");
-                if (grounded)
-                {
-                    print("grounded");
-                    GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce));
-                    //return;
-                    //yield return new WaitForSeconds(2);
-                }
-            }
+        //if (Input.GetKey(KeyCode.Space)){
+        //    print("space is down"); 
+        //    if (grounded & GetComponent<Rigidbody2D>().velocity.y == 0){
+        //        print("grounded" + grounded);
+               
+                
+                // yield return new WaitForSeconds(2);
+            //}
+        //}
     }
-    
-    void Flip ()
+
+    private IEnumerator jumpAndWait(float waitTime)
     {
+        yield return new WaitUntil(() => Input.GetKey(KeyCode.Space));
+        print("space is down");
+        if (grounded & GetComponent<Rigidbody2D>().velocity.y == 0)
+        {
+            print("grounded" + grounded);
+
+            Jump();
+            yield return new WaitForSeconds(waitTime);
+        }
+        
+        
+        StartCoroutine(jumpAndWait(0.5f));
+
+    }
+
+
+
+    void Flip () {
         facingRight = !facingRight;
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
@@ -89,9 +108,13 @@ public class PlayerMovement : MonoBehaviour{
     }
 
     public void gotoRespawnLocation () {
-        {
-            transform.position = new Vector3 (startPosX, startPosY, 0);
-        }
+        
+         transform.position = new Vector3 (startPosX, startPosY, 0);
+       
+    }
+
+    public void Jump () {  
+        GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0, jumpForce));
     }
 
     public void OnTriggerEnter2D (Collider2D collision) {
