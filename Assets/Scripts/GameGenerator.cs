@@ -32,21 +32,35 @@ public class GameGenerator : MonoBehaviour{
 
     private void Start()
     {
-        SpawnLevelPart(levelG1, new Vector3(startPosX, 0));
         levelParts = new List<Transform>();
+        levelParts.Add(levelG1);
+        levelParts.Add(levelG2);
+        levelParts.Add(levelG3);
+        levelParts.Add(levelG4);
+        levelParts.Add(levelG5);
+        levelParts.Add(levelG6);
+        print("*levelparts: " + levelParts +  " *Levelparts.Count: " + levelParts.Count);
+        
+
         levelPartsPositions = new List<Vector3>();
-        //allInstanciatedParts = GameObject.FindGameObjectsWithTag("Wa");
+
+        int partPiece = Random.Range(0, levelParts.Count-1);
+        SpawnLevelPart(levelParts[partPiece], new Vector3(startPosX, 0));
     }
 
     private void Update(){
         print("Player.position: " + Player.position.x + " lastPos: " + lastPos.x);
         if(lastPos.x - Player.position.x <= 500)
         {
+            print("*levelparts[0]: " + levelParts[0]);
+            int partPiece = Random.Range(0, levelParts.Count - 1);
+            
+
             int partGapy = Random.Range(-20, 20);
             Vector3 meep = new Vector3(partGapx, partGapy);
             //add transform to list or array
             
-            SpawnLevelPart(levelG1, lastPos + meep);
+            SpawnLevelPart(levelParts[partPiece], lastPos + meep);
             removeOutOfSight(lastPos + meep);
         }
     }
@@ -68,30 +82,22 @@ public class GameGenerator : MonoBehaviour{
                
             }
         }
-        
-        //{
-        //    if( Player.position.x - levelPartsPositionX[i] >= 500)
-        //    {
-        //        print("removeOutOfSight object at" + levelPartsPositionX[i]);
-        //    }
-        //    //Print(levelPartsPositionX[i]);
-        //}
     }
 
-    private void SpawnLevelPart(Transform part,Vector3 spawnPosition){
-        //array ofzo
-        //Transform temp = 
+    private void SpawnLevelPart(Transform part, Vector3 spawnPosition){
+        // error
+        //int partPiece = Random.Range(0, levelParts.Count -1);
+        //print("partPiece: " + partPiece);
+                
+        //print(levelParts[0]);
+        //Transform part = levelParts[0];
+
         Instantiate(part, spawnPosition, Quaternion.identity);
-        //levelParts.Add(temp);
-       
-        //levelParts.Add();
-        //levelPartsPositionX.Add(spawnPosition.x);
         lastPos = spawnPosition;
     }
-    private void SpawnLevelPartPlatform(Transform part, Vector3 spawnPosition){
-        Instantiate(part, spawnPosition + new Vector3(0,100), Quaternion.identity);
-        //lastPos = spawnPosition;
-    }
+    //private void SpawnLevelPartPlatform(Transform part, Vector3 spawnPosition){
+    //    Instantiate(part, spawnPosition + new Vector3(0,100), Quaternion.identity);
+    //}
 
 
     
