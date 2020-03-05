@@ -17,7 +17,10 @@ public class GameGenerator : MonoBehaviour{
     [SerializeField] private Transform levelG5;
     [SerializeField] private Transform levelG6;
 
-    Transform[] transArray;
+    public GameObject[] allInstanciatedParts;
+
+    List<Transform> levelParts;
+    List<Vector3> levelPartsPositions;
 
     //public ArrayList LevelParts = new ArrayList();
 
@@ -30,57 +33,58 @@ public class GameGenerator : MonoBehaviour{
     private void Start()
     {
         SpawnLevelPart(levelG1, new Vector3(startPosX, 0));
+        levelParts = new List<Transform>();
+        levelPartsPositions = new List<Vector3>();
+        //allInstanciatedParts = GameObject.FindGameObjectsWithTag("Wa");
     }
 
     private void Update(){
-        //transArray = { levelG1, levelG2, levelG3};
-
-        //if difference between playerx and y and last startpos == bigger than 400? ipv for loop
-
-        //if(Player.position )
-
-        //print("Player.position: " + Player.position);
-
-
         print("Player.position: " + Player.position.x + " lastPos: " + lastPos.x);
-        if(lastPos.x - Player.position.x <= 1000)
+        if(lastPos.x - Player.position.x <= 500)
         {
             int partGapy = Random.Range(-20, 20);
             Vector3 meep = new Vector3(partGapx, partGapy);
+            //add transform to list or array
+            
             SpawnLevelPart(levelG1, lastPos + meep);
+            removeOutOfSight(lastPos + meep);
+        }
+    }
+    private void removeOutOfSight(Vector3 meep)
+    {
+        print("removeoutdisght function vEctor3" + meep);
+        levelPartsPositions.Add(meep);
+
+        GameObject[] blub = GameObject.FindGameObjectsWithTag("RemoveOnWalk");
+        GameObject wall = GameObject.Find("wall");
+        //print("blub: " + blub[0] + blub[2] + blub[3] + blub[4] + blub[5]);
+        for (var i = 0; i < blub.Length; i++)
+        {
+            if(Player.position.x - blub[i].transform.position.x >= 500)
+            {
+                //wall.transform.position = blub[i].transform.position;
+                Destroy(blub[i]);
+               
+            }
         }
         
-
-        //for (var i =0; i < 10; i++)
         //{
-        //    if(i == 0)
+        //    if( Player.position.x - levelPartsPositionX[i] >= 500)
         //    {
-                
+        //        print("removeOutOfSight object at" + levelPartsPositionX[i]);
         //    }
-        //    else
-        //    {   
-                
-
-                
-        //        //if(lastPos.x - Player.position.x <= 2000)
-        //        //{
-                   
-        //            //SpawnLevelPart(levelG2, lastPos + meep);
-        //            //SpawnLevelPart(levelG3, lastPos + meep);
-        //            //SpawnLevelPart(levelG4, lastPos + meep);
-        //            //SpawnLevelPart(levelG5, lastPos + meep);
-        //            //SpawnLevelPart(levelG6, lastPos + meep);
-        //        //}
-
-               
-        //    }
+        //    //Print(levelPartsPositionX[i]);
         //}
     }
 
     private void SpawnLevelPart(Transform part,Vector3 spawnPosition){
         //array ofzo
+        //Transform temp = 
         Instantiate(part, spawnPosition, Quaternion.identity);
-        
+        //levelParts.Add(temp);
+       
+        //levelParts.Add();
+        //levelPartsPositionX.Add(spawnPosition.x);
         lastPos = spawnPosition;
     }
     private void SpawnLevelPartPlatform(Transform part, Vector3 spawnPosition){
@@ -88,5 +92,7 @@ public class GameGenerator : MonoBehaviour{
         //lastPos = spawnPosition;
     }
 
+
+    
 
 }
