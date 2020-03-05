@@ -56,13 +56,14 @@ public class GameGenerator : MonoBehaviour{
         levelPartsPositions.Add(meep);
 
         GameObject[] blub = GameObject.FindGameObjectsWithTag("RemoveOnWalk");
-        GameObject wall = GameObject.Find("wall");
+        GameObject wall = GameObject.Find("Wall");
         //print("blub: " + blub[0] + blub[2] + blub[3] + blub[4] + blub[5]);
         for (var i = 0; i < blub.Length; i++)
         {
             if(Player.position.x - blub[i].transform.position.x >= 500)
             {
-                //wall.transform.position = blub[i].transform.position;
+                wall.transform.position = blub[i].transform.position;
+                wall.transform.position += new Vector3(60, 60);
                 Destroy(blub[i]);
                
             }
