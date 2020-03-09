@@ -92,8 +92,6 @@ public class PlayerMovement : MonoBehaviour
             Jump();
             yield return new WaitForSeconds(waitTime);
         }
-        
-        
         StartCoroutine(jumpAndWait(0.5f));
 
     }
@@ -107,10 +105,11 @@ public class PlayerMovement : MonoBehaviour
         transform.localScale = theScale;
     }
 
-    public void gotoRespawnLocation () {
+    public void gotoRespawnLocation (Vector3 respawn) {
         
-         transform.position = new Vector3 (startPosX, startPosY, 0);
+         transform.position = respawn;
        
+        //find way for good respawn
     }
 
     public void Jump () {  
@@ -120,8 +119,10 @@ public class PlayerMovement : MonoBehaviour
     public void OnTriggerEnter2D (Collider2D collision) {
         //print(collision.name);
         if (collision.CompareTag ("Dead")) {
+            print(collision.transform.position);
 
-            gotoRespawnLocation ();
+            Vector3 meep = collision.transform.position + new Vector3(-80, 220);
+            gotoRespawnLocation (meep);
         }
         if (collision.CompareTag("Coin"))
         {

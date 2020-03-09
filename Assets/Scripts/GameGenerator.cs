@@ -13,6 +13,8 @@ public class GameGenerator : MonoBehaviour{
     [SerializeField] private int partGapy = 0;
     [SerializeField] private int startPosX = 110;
 
+    [SerializeField] private int distance = 500;
+
     [SerializeField] private Vector3 lastPos;
 
     private void Start(){
@@ -31,15 +33,24 @@ public class GameGenerator : MonoBehaviour{
         levelParts.Add(part5);
         var part6 = Resources.Load<Transform>("Prefabs/levelParts/G6");
         levelParts.Add(part6);
-        
+        var part7 = Resources.Load<Transform>("Prefabs/levelParts/G7");
+        levelParts.Add(part7);
+        var part8 = Resources.Load<Transform>("Prefabs/levelParts/G8");
+        levelParts.Add(part8);
+        var part9 = Resources.Load<Transform>("Prefabs/levelParts/G9");
+        levelParts.Add(part9);
+        var part10 = Resources.Load<Transform>("Prefabs/levelParts/G10");
+        levelParts.Add(part10);
+
         levelPartsPositions = new List<Vector3>();
 
-        int partPiece = Random.Range(0, levelParts.Count-1);
+        int partPiece = Random.Range(0, levelParts.Count);
         SpawnLevelPart(levelParts[partPiece], new Vector3(startPosX, 0));
     }
 
     private void Update(){
-        if(lastPos.x - Player.position.x <= 500){
+        if(lastPos.x - Player.position.x <= distance)
+        {
             int partPiece = Random.Range(0, levelParts.Count - 1);
             int partGapy = Random.Range(-20, 20);
             Vector3 meep = new Vector3(partGapx, partGapy);
@@ -50,13 +61,15 @@ public class GameGenerator : MonoBehaviour{
     }
 
     private void removeOutOfSight(Vector3 meep){
-        print("removeoutdisght function vEctor3" + meep);
+        print("removeoutdisght function Vector3" + meep);
         levelPartsPositions.Add(meep);
 
         GameObject[] blub = GameObject.FindGameObjectsWithTag("RemoveOnWalk");
         GameObject wall = GameObject.Find("Wall");
+       
         for (var i = 0; i < blub.Length; i++){
-            if(Player.position.x - blub[i].transform.position.x >= 500){
+            if(Player.position.x - blub[i].transform.position.x >= distance){
+                print(blub[i]);
                 wall.transform.position = blub[i].transform.position;
                 wall.transform.position += new Vector3(60, 60);
                 Destroy(blub[i]); 
