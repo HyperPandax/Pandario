@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6948472195315046628}
   - component: {fileID: 1085844085519656186}
   m_Layer: 0
-  m_Name: treesblack
-  m_TagString: Untagged
+  m_Name: treesblack1
+  m_TagString: RemoveOnWalk
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25,8 +25,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6649329121634947390}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.034, y: 8.073, z: 16}
-  m_LocalScale: {x: 3.36889, y: 2.1234312, z: 0.25}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 30, y: 30, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: be53683c28f46ed45aa7ddbe68f3f5b1, type: 3}
-  m_Color: {r: 0.46226418, g: 0.46226418, b: 0.46226418, a: 0.5882353}
+  m_Color: {r: 0.46226418, g: 0.46226418, b: 0.46226418, a: 0.25490198}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

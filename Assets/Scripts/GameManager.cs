@@ -5,17 +5,23 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour{
-   
+
     public int score;
-    public Text scoreText;
-    [SerializeField]
-    private GameObject Canvas;
+    [SerializeField] private Text scoreText;
+    public int meter;
+    [SerializeField] private Text meterText;
+    [SerializeField] private Transform player;
+    private float startpos;
+    [SerializeField] private GameObject Canvas;
     Scene scene;
 
     // Use this for initialization
     void Start(){
         scene = SceneManager.GetActiveScene();
         score = 0;
+        meter = 0;
+        startpos = player.transform.position.x;
+        print(startpos);
         DontDestroyOnLoad(this.gameObject);
         Cursor.visible = false;
     }
@@ -23,6 +29,8 @@ public class GameManager : MonoBehaviour{
     // Update is called once per frame
     void Update(){
         scoreText.text = ("Score: " + score);
+        //float meep = player.transform.position.x - startpos;
+        //meterText.text = ("Meter: " + Mathf.FloorToInt(meep));
         scene = SceneManager.GetActiveScene();
         CheckScene();
     }

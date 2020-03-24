@@ -61,12 +61,21 @@ public class PlayerMovement : MonoBehaviour
 
         float move = Input.GetAxis("Horizontal");
 
+        bool run = Input.GetKey(KeyCode.LeftShift);
+
         if (move > 0 && !facingRight)
             Flip ();
         else if (move < 0 && facingRight)
             Flip ();
 
-        GetComponent<Rigidbody2D>().velocity = new Vector2 (move * maxSpeed, GetComponent<Rigidbody2D>().velocity.y);
+        if (run)
+        {
+            GetComponent<Rigidbody2D>().velocity = new Vector2(move * maxSpeed*2, GetComponent<Rigidbody2D>().velocity.y);
+        }
+        else { GetComponent<Rigidbody2D>().velocity = new Vector2(move * maxSpeed, GetComponent<Rigidbody2D>().velocity.y); }
+    
+
+        
     }
     
     void Update () {
@@ -126,7 +135,8 @@ public class PlayerMovement : MonoBehaviour
         }
         if (collision.CompareTag("Coin"))
         {
-            collision.gameObject.SetActive(false);
+            //collision.gameObject.SetActive(false);
+            Destroy(collision.gameObject);
             gm.score += 100;
 
         }
