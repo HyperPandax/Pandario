@@ -44,23 +44,14 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void FixedUpdate () {
-        //Jump();
         grounded = false;
-       
-        //print("groundCheck.position: " + groundCheck.position);
-       // print("groundedRadius: " + groundedRadius);
-        //print("whatIsGround: " + whatIsGround);
-
         Collider2D[] colliders = Physics2D.OverlapCircleAll (groundCheck.position, groundedRadius, whatIsGround);
         for (int i = 0; i < colliders.Length; i++) {
-            //print("colliders[i]" + colliders[i].name);
             if (colliders[i].gameObject != gameObject)
                 grounded = true;
         }
-        //print("grounded: " + grounded);
 
         float move = Input.GetAxis("Horizontal");
-
         bool run = Input.GetKey(KeyCode.LeftShift);
 
         if (move > 0 && !facingRight)
@@ -73,23 +64,8 @@ public class PlayerMovement : MonoBehaviour
             GetComponent<Rigidbody2D>().velocity = new Vector2(move * maxSpeed*2, GetComponent<Rigidbody2D>().velocity.y);
         }
         else { GetComponent<Rigidbody2D>().velocity = new Vector2(move * maxSpeed, GetComponent<Rigidbody2D>().velocity.y); }
-    
-
-        
     }
-    
-    void Update () {
-        //if (Input.GetKey(KeyCode.Space)){
-        //    print("space is down"); 
-        //    if (grounded & GetComponent<Rigidbody2D>().velocity.y == 0){
-        //        print("grounded" + grounded);
-               
-                
-                // yield return new WaitForSeconds(2);
-            //}
-        //}
-    }
-
+  
     private IEnumerator jumpAndWait(float waitTime)
     {
         yield return new WaitUntil(() => Input.GetKey(KeyCode.Space));
@@ -102,10 +78,7 @@ public class PlayerMovement : MonoBehaviour
             yield return new WaitForSeconds(waitTime);
         }
         StartCoroutine(jumpAndWait(0.5f));
-
     }
-
-
 
     void Flip () {
         facingRight = !facingRight;
@@ -126,7 +99,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void OnTriggerEnter2D (Collider2D collision) {
-        //print(collision.name);
         if (collision.CompareTag ("Dead")) {
             print(collision.transform.position);
 
@@ -135,10 +107,16 @@ public class PlayerMovement : MonoBehaviour
         }
         if (collision.CompareTag("Coin"))
         {
-            //collision.gameObject.SetActive(false);
             Destroy(collision.gameObject);
             gm.score += 100;
 
+        }
+        if (collision.CompareTag("Enemy"))
+        {
+            gm.health--;
+            // bounch player back so only 1 point gets removed
+            Vector2 knockbackVelocity = new Vector2((transform.position.x - GetComponent<Rigidbody2D>().transform.position.x) * 2, (transform.position.y - GetComponent<Rigidbody2D>().transform.position.y) * 2);
+            GetComponent<Rigidbody2D>().velocity = -knockbackVelocity;
         }
     }
 }

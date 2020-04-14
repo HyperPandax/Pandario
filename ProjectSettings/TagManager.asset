@@ -9,6 +9,7 @@ TagManager:
   - Coin
   - GameManager
   - RemoveOnWalk
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - 
   - Ground
   - Player
-  - 
+  - Enemy
   - 
   - 
   - 

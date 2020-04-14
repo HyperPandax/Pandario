@@ -88,27 +88,18 @@ public class GameGenerator : MonoBehaviour{
         GameObject[] blub = GameObject.FindGameObjectsWithTag("RemoveOnWalk");
         GameObject wall = GameObject.Find("Wall");
        
-        for (var i = 0; i < blub.Length; i++){
+        for (int i = 0; i < blub.Length; i++){
             if(Player.position.x - blub[i].transform.position.x >= distance){
                 print(blub[i]);
-                wall.transform.position = blub[i].transform.position;
-                //wall.transform.position += new Vector3(64, 0);
+                wall.transform.position = blub[i].transform.position +new Vector3(35,0,0);
                 Destroy(blub[i]);
             }
         }
     }
 
     private void SpawnLevelPart(Transform part, Vector3 spawnPosition){
-        // error
-        //int partPiece = Random.Range(0, levelParts.Count -1);
-        //print("partPiece: " + partPiece);
-                
-        //print(levelParts[0]);
-        //Transform part = levelParts[0];
-
         Instantiate(part, spawnPosition, Quaternion.identity);
         SpawnTrees(spawnPosition);
-        //Instantiate(treesBG, spawnPosition, Quaternion.identity); 
         lastPos = spawnPosition;
         blockCounter++;
         ACounter++;
@@ -133,36 +124,24 @@ public class GameGenerator : MonoBehaviour{
             SpawnThin(spawnPosition);
             BCounter = 0;
         }
-        //int meep = Random.Range(0, 30);
-        //if (meep == 8 || meep == 15 || meep == 4)
-        //}
+        
     }
-    //private void SpawnLevelPartPlatform(Transform part, Vector3 spawnPosition){
-    //    Instantiate(part, spawnPosition + new Vector3(0,100), Quaternion.identity);
-    //}
+   
 
     private void SpawnThin(Vector3 spawnPosition)
     {
-
         int meep = Random.Range(0, 10);
         int eep = Random.Range(40, 60);
 
-
-        //if (meep == 0 || meep == 1 || meep == 2 || meep == 3) { Instantiate(platformThin, spawnPosition + new Vector3(0, eep, 10), Quaternion.identity); }
-        
     }
     private void SpawnLow(Vector3 spawnPosition)
     {
-
         int meep = Random.Range(0, 10);
         int eep = Random.Range(10, 30);
-
-
+        
         if (meep== 0 || meep == 1 || meep == 2 || meep == 3){Instantiate(platform4, spawnPosition + new Vector3(-32, eep, 10), Quaternion.identity); SpawnMid(platform3, spawnPosition); }
         if (meep == 4 || meep == 5 || meep == 6 || meep == 10) { Instantiate(platform3, spawnPosition + new Vector3(-32, eep, 10), Quaternion.identity); SpawnMid(platform2, spawnPosition); }
-        if (meep == 7 || meep == 8 || meep == 9) { Instantiate(platform2, spawnPosition + new Vector3(-32, eep, 10), Quaternion.identity); }
-
-          
+        if (meep == 7 || meep == 8 || meep == 9) { Instantiate(platform2, spawnPosition + new Vector3(-32, eep, 10), Quaternion.identity); }          
        
     }
     private void SpawnMid(Transform part, Vector3 spawnPosition)
@@ -186,12 +165,6 @@ public class GameGenerator : MonoBehaviour{
     private void SpawnTrees(Vector3 spawnPosition)
     {
         int eep = Random.Range(0, 15);
-        //palmtree;
-        //treesBG;
-        if(eep == 0)
-        {
-            //Instantiate(tree1, spawnPosition + new Vector3(0, 38, -5), Quaternion.identity);
-        }
         if(eep == 6)
         {
             Instantiate(tree3, spawnPosition + new Vector3(20, 37.5f, 0), Quaternion.identity);
